@@ -6,8 +6,6 @@ import (
 	"flag"
 	"fmt"
 
-	_ "github.com/lib/pq"
-
 	"github.com/go-kit/kit/log"
 
 	"github.com/go-kit/kit/log/level"
@@ -20,7 +18,8 @@ import (
 	"crud.com/account"
 )
 
-const dbsource = "postgresql://postgres:postgres@localhost:5432/gokitexample?sslmode=disable"
+//change according to mongo
+// const dbsource = ""
 
 func main() {
 	var httpAddr = flag.String("http", ":8080", "http listen address")
@@ -38,11 +37,12 @@ func main() {
 	level.Info(logger).Log("msg", "service started")
 	defer level.Info(logger).Log("msg", "service ended")
 
+	//chnage mongo
 	var db *sql.DB
 	{
 		var err error
 
-		db, err = sql.Open("postgres", dbsource)
+		db, err = sql.Open("postgres", dbsource) //chnge
 		if err != nil {
 			level.Error(logger).Log("exit", err)
 			os.Exit(-1)

@@ -50,3 +50,21 @@ func (s service) GetUser(ctx context.Context, email string, password string) (st
 	logger.Log("Get user", id)
 	return email, nil
 }
+
+func (s service) UpdateUser(ctx context.Context, email string, password string) (string, error) {
+	logger := log.With(s.logger, "method", "UpdateUser")
+
+	user := User{
+		ID:       id,
+		Email:    email,
+		Password: password,
+	}
+	if err := s.repository.UpdateUser(ctx, user); err != nil {
+		level.Error(logger).Log("err", err)
+		return "", err
+	}
+
+	logger.Log("Update user", id)
+	return "SUCCESS", nil
+
+}

@@ -7,4 +7,5 @@ import (
 type Service interface {
 	CreateUser(ctx context.Context, email string, password string) (string, error)
 	GetUser(ctx context.Context, id string) (string, error)
+	UpdateUser(ctx context.Context, email string, password string) (string, error)
 }

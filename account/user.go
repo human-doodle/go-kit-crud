@@ -9,6 +9,7 @@ type User struct {
 }
 
 type Repository interface {
-	CreateUser(ctx context.Context, user User)
+	CreateUser(ctx context.Context, user User) error
 	GetUser(ctx context.Context, id string) (string, error)
+	UpdateUser(ctx context.Context, user User) error
 }

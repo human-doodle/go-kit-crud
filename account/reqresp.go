@@ -25,6 +25,15 @@ type (
 	GetUserResponse struct {
 		Email string `json : "email"`
 	}
+
+	UpdateUserRequest struct {
+		Email    string `json :"email"`
+		Password string `json : "password"`
+	}
+
+	UpdateUserResponse struct {
+		Ok string `json : "ok"`
+	}
 )
 
 func encodeResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {

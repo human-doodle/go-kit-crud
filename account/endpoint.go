@@ -9,12 +9,14 @@ import (
 type Endpoints struct {
 	CreateUser endpoint.Endpoint
 	GetUser    endpoint.Endpoint
+	UpdateUser endpoint.Endpoint
 }
 
 func MakeEndpoints(s Service) Endpoints {
 	return Endpoints{
 		CreateUser: makeCreateUserEndpoint(s),
 		GetUser:    makeGetUserEndpoint(s),
+		UpdateUser: makeUpdateUserEndpoint(s),
 	}
 }
 
@@ -34,5 +36,13 @@ func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 		return GetUserResponse{
 			Email: email,
 		}, err
+	}
+}
+
+func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(UpdateUserRequest)
+		ok, err := s.UpdateUser(ctx, req.Email, req.Password)
+		return UpdateUserResponse{Ok: ok}, err
 	}
 }

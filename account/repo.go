@@ -53,3 +53,20 @@ func (repo *repo) GetUser(ctx context.Context, id string) (string, error) {
 
 	return email, nil
 }
+
+func (repo *repo) UpdateUser(ctx context.Context, user User) error {
+
+	//change fr mongo
+
+	// update logic in mongo
+
+	if user.Email == "" || user.Password == "" {
+		return RepoErr
+	}
+
+	// _, err := repo.db.ExecContext(ctx, sql, user.ID, user.Email, user.Password)
+	if err != nil {
+		return err
+	}
+	return nil
+}
