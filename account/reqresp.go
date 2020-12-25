@@ -12,6 +12,8 @@ type (
 	CreateUserRequest struct {
 		Email    string `json :"email"`
 		Password string `json : "password"`
+		City     string `json:"city"`
+		Age      int    `json: "age"`
 	}
 
 	CreateUserResponse struct {
@@ -29,6 +31,8 @@ type (
 	UpdateUserRequest struct {
 		Email    string `json :"email"`
 		Password string `json : "password"`
+		City     string `json:"city"`
+		Age      int    `json: "age"`
 	}
 
 	UpdateUserResponse struct {

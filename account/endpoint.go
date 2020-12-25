@@ -23,7 +23,7 @@ func MakeEndpoints(s Service) Endpoints {
 func makeCreateUserEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(CreateUserRequest)
-		ok, err := s.CreateUser(ctx, req.Email, req.Password)
+		ok, err := s.CreateUser(ctx, req.Email, req.Password, req.City, req.Age)
 		return CreateUserResponse{Ok: ok}, err
 	}
 }
@@ -42,7 +42,7 @@ func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(UpdateUserRequest)
-		ok, err := s.UpdateUser(ctx, req.Email, req.Password)
+		ok, err := s.UpdateUser(ctx, req.Email, req.Password, req.City, req.Age)
 		return UpdateUserResponse{Ok: ok}, err
 	}
 }
