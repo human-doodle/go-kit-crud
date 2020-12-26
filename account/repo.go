@@ -39,7 +39,7 @@ func (repo *repo) CreateUser(ctx context.Context, user User) error {
 }
 
 func (repo *repo) GetUser(ctx context.Context, id string) (interface{}, error) {
-	coll := db.C(UserCollection)
+	coll := db.C("bloguser")
 	data := []User{}
 	err := coll.Find(bson.M{"userid": id}).Select(bson.M{}).All(&data)
 	if err != nil {
