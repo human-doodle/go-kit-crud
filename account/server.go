@@ -25,7 +25,7 @@ func NewHTTPServer(ctx context.Context, endpoints Endpoints) http.Handler {
 	))
 
 	r.Methods("PUT").Path("/update").Handler(httptransport.NewServer(
-		endpoints.UpadteUser,
+		endpoints.UpdateUser,
 		decodeUserReq,
 		encodeResponse,
 	))

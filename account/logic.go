@@ -44,7 +44,8 @@ func (s service) CreateUser(ctx context.Context, email string, password string, 
 func (s service) GetUser(ctx context.Context, id string) (string, error) {
 	logger := log.With(s.logger, "method", "GetUser")
 
-	if email, err := s.repository.GetUser(ctx, id); err != nil {
+	 email, err := s.repository.GetUser(ctx, id) 
+	 if err != nil {
 		level.Error(logger).Log("err", err)
 		return "", err
 	}
@@ -55,7 +56,9 @@ func (s service) GetUser(ctx context.Context, id string) (string, error) {
 
 func (s service) UpdateUser(ctx context.Context, email string, password string, city string, age int) (string, error) {
 	logger := log.With(s.logger, "method", "UpdateUser")
-
+	uuid, _ := uuid.NewV4()
+	id := uuid.String()
+	
 	user := User{
 		ID:       id,
 		Email:    email,
