@@ -26,9 +26,12 @@ type (
 
 	GetUserResponse struct {
 		Email string `json : "email"`
+		City  string `json:"city"`
+		Age   int    `json: "age"`
 	}
 
 	UpdateUserRequest struct {
+		ID       string `json : "id"`
 		Email    string `json :"email"`
 		Password string `json : "password"`
 		City     string `json:"city"`

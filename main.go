@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
-	"database/sql"
+	
 	"flag"
 	"fmt"
 
 	"github.com/go-kit/kit/log"
 
 	"github.com/go-kit/kit/log/level"
-
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 	"os"
 	"os/signal"
@@ -20,6 +21,9 @@ import (
 
 //change according to mongo
 // const dbsource = ""
+var db *mongo.Client
+var blogdb *mongo.Collection
+var mongoCtx context.Context
 
 func main() {
 	var httpAddr = flag.String("http", ":8080", "http listen address")
@@ -38,7 +42,7 @@ func main() {
 	defer level.Info(logger).Log("msg", "service ended")
 
 	//chnage mongo
-	var db *sql.DB
+	/*var db *sql.DB
 	{
 		var err error
 
@@ -48,7 +52,7 @@ func main() {
 			os.Exit(-1)
 		}
 
-	}
+	}*/
 
 	flag.Parse()
 	ctx := context.Background()
@@ -76,4 +80,24 @@ func main() {
 	}()
 
 	level.Error(logger).Log("exit", <-errs)
+
+	fmt.Println("Connecting to MongoDB...")
+  
+ 
+	mongoCtx = context.Background()
+  
+  
+	db, err = mongo.Connect(mongoCtx, options.Client().ApplyURI("mongodb://localhost:27017"))
+  
+	if err != nil {
+		log.Fatal(err)
+	}
+  
+  
+	err = db.Ping(mongoCtx, nil)
+	if err != nil {
+		log.Fatalf("Could not connect to MongoDB: %v\n", err)
+	} else {
+		fmt.Println("Connected to Mongodb")
+	}
 }
