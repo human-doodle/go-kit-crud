@@ -10,8 +10,14 @@ type User struct {
 	Age      int    `json: "age"`
 }
 
+type Profile struct {
+	Email string `json:"email"`
+	City  string `json:"city"`
+	Age   int    `json: "age"`
+}
+
 type Repository interface {
 	CreateUser(ctx context.Context, user User) error
-	GetUser(ctx context.Context, id string) (interface{}, error)
+	GetUser(ctx context.Context, id string) (profile Profile, errr error)
 	UpdateUser(ctx context.Context, user User) error
 }
