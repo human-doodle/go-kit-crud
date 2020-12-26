@@ -38,18 +38,17 @@ func (repo *repo) CreateUser(ctx context.Context, user User) error {
 	return nil
 }
 
-func (repo *repo) GetUser(ctx context.Context, id string) (string, error) {
-	var email string
-
-	//change for mongo
-
-	// err := repo.db.QueryRow("SELECT email FROM users WHERE id=$1", id).Scan(&email)
-	/*if err != nil {
-		return "", RepoErr
+func (repo *repo) GetUser(ctx context.Context, id string) (interface{}, error) {
+	coll := db.C(UserCollection)
+	data := []User{}
+	err := coll.Find(bson.M{"userid": id}).Select(bson.M{}).All(&data)
+	if err != nil {
+		fmt.Println("Error occured in GetuserById")
+		return "", err
 	}
-	*/
-	return email, nil
+	return data, nil
 }
+
 
 func (repo *repo) UpdateUser(ctx context.Context, user User) error {
 	err := repo.db.C("bloguser").Update(
