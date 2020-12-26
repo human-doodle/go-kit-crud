@@ -42,7 +42,7 @@ func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(UpdateUserRequest)
-		ok, err := s.UpdateUser(ctx, req.Email, req.Password, req.City, req.Age)
+		ok, err := s.UpdateUser(ctx, req.ID, req.Email, req.Password, req.City, req.Age)
 		return UpdateUserResponse{Ok: ok}, err
 	}
 }
