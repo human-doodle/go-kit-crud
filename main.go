@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"github.com/go-kit/kit/log"
+	mgo "gopkg.in/mgo.v2"
 
 	"os"
 	"os/signal"
@@ -35,17 +36,18 @@ func main() {
 	level.Info(logger).Log("msg", "service started")
 	defer level.Info(logger).Log("msg", "service ended")
 
-	db := GetMongoDB()
 	// if err != nil {
 	// 	level.Error(logger).Log("exit", err)
 	// 	os.Exit(-1)
 	// }
 
+	var db *mgo.Database
+	db = GetMongoDB()
 	flag.Parse()
 	ctx := context.Background()
 	var srv account.Service
 	{
-
+		// db := GetMongoDB()
 		repository, _ := account.NewRepo(db, logger)
 
 		srv = account.NewService(repository, logger)
@@ -67,23 +69,25 @@ func main() {
 		errs <- http.ListenAndServe(*httpAddr, handler)
 	}()
 
-	// 	level.Error(logger).Log("exit", <-errs)
-
-	// 	fmt.Println("Connecting to MongoDB...")
-
-	// 	mongoCtx = context.Background()
-
-	// 	db, err = mongo.Connect(mongoCtx, options.Client().ApplyURI("mongodb://localhost:27017"))
-
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-
-	// 	err = db.Ping(mongoCtx, nil)
-	// 	if err != nil {
-	// 		log.Fatalf("Could not connect to MongoDB: %v\n", err)
-	// 	} else {
-	// 		fmt.Println("Connected to Mongodb")
-	// 	}
-	// }
+	level.Error(logger).Log("exit", <-errs)
 }
+
+// 	level.Error(logger).Log("exit", <-errs)
+
+// 	fmt.Println("Connecting to MongoDB...")
+
+// 	mongoCtx = context.Background()
+
+// 	db, err = mongo.Connect(mongoCtx, options.Client().ApplyURI("mongodb://localhost:27017"))
+
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	err = db.Ping(mongoCtx, nil)
+// 	if err != nil {
+// 		log.Fatalf("Could not connect to MongoDB: %v\n", err)
+// 	} else {
+// 		fmt.Println("Connected to Mongodb")
+// 	}
+// }
