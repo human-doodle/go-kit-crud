@@ -13,6 +13,7 @@ type service struct {
 	logger     log.Logger //to log whats going on
 }
 
+//NewService is ...
 func NewService(rep Repository, logger log.Logger) Service {
 	return &service{
 		repository: rep,

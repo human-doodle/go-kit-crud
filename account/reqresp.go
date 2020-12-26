@@ -9,6 +9,7 @@ import (
 )
 
 type (
+	//CreateUserRequest is ...
 	CreateUserRequest struct {
 		Email    string `json :"email"`
 		Password string `json : "password"`
@@ -16,20 +17,24 @@ type (
 		Age      int    `json: "age"`
 	}
 
+	//CreateUserResponse is ...
 	CreateUserResponse struct {
 		Ok string `json : "ok"`
 	}
 
+	//GetUserRequest is...
 	GetUserRequest struct {
-		Id string `json : "id"`
+		ID string `json : "id"`
 	}
 
+	//GetUserResponse is ...
 	GetUserResponse struct {
 		Email string `json : "email"`
 		City  string `json:"city"`
 		Age   int    `json: "age"`
 	}
 
+	//UpdateUserRequest is ...
 	UpdateUserRequest struct {
 		ID       string `json : "id"`
 		Email    string `json :"email"`
@@ -38,6 +43,7 @@ type (
 		Age      int    `json: "age"`
 	}
 
+	//UpdateUserResponse is...
 	UpdateUserResponse struct {
 		Ok string `json : "ok"`
 	}
@@ -61,7 +67,7 @@ func decodeEmailReq(ctx context.Context, r *http.Request) (interface{}, error) {
 	vars := mux.Vars(r)
 
 	req = GetUserRequest{
-		Id: vars["id"],
+		ID: vars["id"],
 	}
 	return req, nil
 }

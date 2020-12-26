@@ -11,13 +11,15 @@ import (
 	//"gopkg.in/mgo.v2/bson"
 )
 
-var RepoErr = errors.New("Unable to handle Repo Request")
+//ErrRepo is ...
+var ErrRepo = errors.New("Unable to handle Repo Request")
 
 type repo struct {
 	db     *mgo.Database
 	logger log.Logger
 }
 
+//NewRepo is ...
 func NewRepo(db *mgo.Database, logger log.Logger) (Repository, error) {
 	return &repo{
 		db:     db,
@@ -32,9 +34,9 @@ func (repo *repo) CreateUser(ctx context.Context, user User) error {
 	if err != nil {
 		fmt.Println("Error occured inside CreateUser in repo")
 		return err
-	} else {
-		fmt.Println("User Created:", user.Email, user.Password, user.City, user.Age)
 	}
+	fmt.Println("User Created:", user.Email, user.Password, user.City, user.Age)
+
 	return nil
 }
 

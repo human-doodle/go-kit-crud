@@ -6,12 +6,14 @@ import (
 	"github.com/go-kit/kit/endpoint"
 )
 
+//Endpoints is...
 type Endpoints struct {
 	CreateUser endpoint.Endpoint
 	GetUser    endpoint.Endpoint
 	UpdateUser endpoint.Endpoint
 }
 
+//MakeEndpoints is...
 func MakeEndpoints(s Service) Endpoints {
 	return Endpoints{
 		CreateUser: makeCreateUserEndpoint(s),
@@ -31,7 +33,7 @@ func makeCreateUserEndpoint(s Service) endpoint.Endpoint {
 func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(GetUserRequest)
-		email, city, age, err := s.GetUser(ctx, req.Id)
+		email, city, age, err := s.GetUser(ctx, req.ID)
 
 		return GetUserResponse{
 			Email: email,

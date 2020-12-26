@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//NewHTTPServer is ...
 func NewHTTPServer(ctx context.Context, endpoints Endpoints) http.Handler {
 	r := mux.NewRouter()
 	r.Use(commonMiddleware)
