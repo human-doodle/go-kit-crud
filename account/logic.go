@@ -41,18 +41,18 @@ func (s service) CreateUser(ctx context.Context, email string, password string, 
 	return "SUCCESS", nil
 }
 
-func (s service) GetUser(ctx context.Context, id string) (string, error) {
+func (s service) GetUser(ctx context.Context, id string) (interface{}, error) {
 	logger := log.With(s.logger, "method", "GetUser")
-
-	email, err := s.repository.GetUser(ctx, id)
+	var data interface{}
+	data, err := s.repository.GetUser(ctx, id)
 	if err != nil {
 		level.Error(logger).Log("err", err)
+
 		return "", err
 	}
-
-	logger.Log("Get user", id)
-	return email, nil
+	return data, nil
 }
+
 
 func (s service) UpdateUser(ctx context.Context, id string, email string, password string, city string, age int) (string, error) {
 	logger := log.With(s.logger, "method", "UpdateUser")
