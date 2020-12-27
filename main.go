@@ -71,29 +71,3 @@ func main() {
 
 	level.Error(logger).Log("exit", <-errs)
 }
-
-// 	level.Error(logger).Log("exit", <-errs)
-
-// 	fmt.Println("Connecting to MongoDB...")
-
-// 	mongoCtx = context.Background()
-
-// 	db, err = mongo.Connect(mongoCtx, options.Client().ApplyURI("mongodb://localhost:27017"))
-
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	err = db.Ping(mongoCtx, nil)
-// 	if err != nil {
-// 		log.Fatalf("Could not connect to MongoDB: %v\n", err)
-// 	} else {
-// 		fmt.Println("Connected to Mongodb")
-// 	}
-// }
-
-
-
-
-
-

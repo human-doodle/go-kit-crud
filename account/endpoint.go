@@ -31,19 +31,6 @@ func makeCreateUserEndpoint(s Service) endpoint.Endpoint {
 	}
 }
 
-/*
-func makeGetUserEndpoint(s Service) endpoint.Endpoint {
-	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(GetUserRequest)
-		email, city, age, err := s.GetUser(ctx, req.ID)
-
-		return GetUserResponse{
-			Email: email,
-			City:  city,
-			Age:   age,
-		}, err
-	}
-} */
 func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 	fmt.Println("into makeendpoint")
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
@@ -61,13 +48,3 @@ func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
 		return UpdateUserResponse{Ok: ok}, err
 	}
 }
-
-// func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
-// 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-// 		req := request.(UpdateUserRequest)
-// 		rc := req.user
-// 		 i, err := strconv.Atoi(rc.ID)
-// 		 err = s.UpdateUser(ctx, i, req.user)
-// 		return UpdateUserResponse{Err: err}, nil
-// 	}
-// }
