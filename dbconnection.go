@@ -16,7 +16,7 @@ func GetMongoDB() *mgo.Database {
 	host := "MONGO_HOST"
 	dbName := "goTest"
 	fmt.Println("connection info:", host, dbName)
-	session, err := mgo.Dial("mongodb://localhost:27017")
+	session, err := mgo.Dial("mongodb://localhost:27012,localhost:27013,localhost:27011")
 	if err != nil {
 		fmt.Println("session err:", err)
 		os.Exit(2)
