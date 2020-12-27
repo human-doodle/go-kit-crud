@@ -56,7 +56,7 @@ func (repo *repo) GetUser(ctx context.Context, id string) (profile Profile, errr
 func (repo *repo) GetUser(ctx context.Context) (interface{}, error) {
 	coll := repo.db.C("bloguser")
 	data := []User{}
-	err := coll.Find(bson.M{}).Select(bson.M{"email": 1, "city": 1, "age": 1}).All(&data)
+	err := coll.Find(bson.M{}).All(&data)
 	if err != nil {
 		fmt.Println("Error occured inside GetCUstomerById in repo")
 		return "", err
