@@ -14,6 +14,11 @@ Implements 3 functions:
  </pre>
  
  Creating a 3-Node Replica Set Cluster (on a single machine):
-  [Referred from here](https://medium.com/swlh/mongodb-creating-a-3-node-replica-set-cluster-7ca94849b139 "Creating a 3-Node Replica Set Cluster")
-   
+  [Referred from here](https://medium.com/swlh/mongodb-creating-a-3-node-replica-set-cluster-7ca94849b139 "Creating a 3-Node Replica Set Cluster"). In addition to this,execute rs.slaveOk() on the secondary nodes.
+
+In order to view the collections secondary nodes, authenticate by - 
+<pre>
+  use admin
+  db.auth(username,password)
+   </pre>
  
