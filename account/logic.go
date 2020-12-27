@@ -21,7 +21,6 @@ func NewService(rep Repository, logger log.Logger) Service {
 	}
 }
 
-
 func (s service) CreateUser(ctx context.Context, email string, password string, city string, age int) (string, error) {
 	logger := log.With(s.logger, "method", "CreateUser")
 
@@ -42,6 +41,7 @@ func (s service) CreateUser(ctx context.Context, email string, password string, 
 	logger.Log("Created user", id)
 	return "SUCCESS", nil
 }
+
 /*
 func (s service) GetUser(ctx context.Context, id string) (email string, city string, age int, errr error) {
 	logger := log.With(s.logger, "method", "GetUser")
@@ -55,7 +55,6 @@ func (s service) GetUser(ctx context.Context, id string) (email string, city str
 	return p.Email, p.City, p.Age, nil
 } */
 
-
 func (s service) GetUser(ctx context.Context) (interface{}, error) {
 	logger := log.With(s.logger, "method", "GetUser")
 	var email interface{}
@@ -66,8 +65,6 @@ func (s service) GetUser(ctx context.Context) (interface{}, error) {
 	}
 	return email, nil
 }
-
-/*
 
 func (s service) UpdateUser(ctx context.Context, id string, email string, password string, city string, age int) (string, error) {
 	logger := log.With(s.logger, "method", "UpdateUser")
@@ -88,18 +85,17 @@ func (s service) UpdateUser(ctx context.Context, id string, email string, passwo
 	return "SUCCESS", nil
 
 }
-*/
 
-func (s service) UpdateUser(ctx context.Context, id int, user User) error {
-	logger := log.With(s.logger, "method", "ChangeDetails")
-	// var email string
-	err := s.repository.UpdateUser(ctx, id, user)
-	if err != nil {
-		level.Error(logger).Log("err", err)
-		return err
-	} else {
-		// msg := "Data Updated Successfully"
-		return nil
-	}
+// func (s service) UpdateUser(ctx context.Context, id int, user User) error {
+// 	logger := log.With(s.logger, "method", "ChangeDetails")
+// 	// var email string
+// 	err := s.repository.UpdateUser(ctx, user)
+// 	if err != nil {
+// 		level.Error(logger).Log("err", err)
+// 		return err
+// 	} else {
+// 		// msg := "Data Updated Successfully"
+// 		return nil
+// 	}
 
-}
+// }
