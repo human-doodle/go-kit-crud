@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	//"github.com/gorilla/mux"
 )
 
 type (
@@ -23,17 +23,25 @@ type (
 	}
 
 	//GetUserRequest is...
-	GetUserRequest struct {
-		ID string `json : "id"`
-	}
+	//GetUserRequest struct {
+	//	ID string `json : "id"`
+	//}
 
 	//GetUserResponse is ...
-	GetUserResponse struct {
-		Email string `json : "email"`
-		City  string `json:"city"`
-		Age   int    `json: "age"`
+   //	GetUserResponse struct {
+	//	Email string `json : "email"`
+	//	City  string `json:"city"`
+	//	Age   int    `json: "age"`
+	//}
+
+	GetUserRequest struct {
 	}
 
+	GetUserResponse struct {
+		Data interface{} `json:"user"`
+		Err  error       `json:"error,omitempty"`
+	}
+ /*
 	//UpdateUserRequest is ...
 	UpdateUserRequest struct {
 		ID       string `json : "id"`
@@ -46,10 +54,25 @@ type (
 	//UpdateUserResponse is...
 	UpdateUserResponse struct {
 		Ok string `json : "ok"`
+	} */
+
+	UpdateUserRequest struct {
+	ID   string `json:"id"`
+	user User
+	}
+	
+	UpdateUserResponse struct {
+	Err error `json:"error,omitempty"`
 	}
 )
 
+/*
 func encodeResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {
+	return json.NewEncoder(w).Encode(response)
+}*/
+
+func encodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	return json.NewEncoder(w).Encode(response)
 }
 
@@ -61,7 +84,7 @@ func decodeUserReq(ctx context.Context, r *http.Request) (interface{}, error) {
 	}
 	return req, nil
 }
-
+/*
 func decodeEmailReq(ctx context.Context, r *http.Request) (interface{}, error) {
 	var req GetUserRequest
 	vars := mux.Vars(r)
@@ -70,4 +93,23 @@ func decodeEmailReq(ctx context.Context, r *http.Request) (interface{}, error) {
 		ID: vars["id"],
 	}
 	return req, nil
+}*/
+
+func decodeGetUserRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	var req GetUserRequest
+
+	return req, nil
 }
+
+
+
+func decodeUpdateUserRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	var req UpdateUserRequest
+	if err := json.NewDecoder(r.Body).Decode(&req.user); err != nil {
+		return nil, err
+	}
+	return req, nil
+
+}
+
+

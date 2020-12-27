@@ -8,7 +8,7 @@ import (
 	"github.com/go-kit/kit/log"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	//"gopkg.in/mgo.v2/bson"
+	
 )
 
 //ErrRepo is ...
@@ -40,6 +40,7 @@ func (repo *repo) CreateUser(ctx context.Context, user User) error {
 	return nil
 }
 
+/*
 func (repo *repo) GetUser(ctx context.Context, id string) (profile Profile, errr error) {
 	coll := repo.db.C("bloguser")
 	data := []Profile{}
@@ -49,8 +50,22 @@ func (repo *repo) GetUser(ctx context.Context, id string) (profile Profile, errr
 		fmt.Println("Error occured in GetuserById")
 		return d, err
 	}
+	//fmt.Println(data)
 	return data[0], nil
+}*/
+func (repo *repo) GetUser(ctx context.Context) (interface{}, error) {
+	coll := repo.db.C("bloguser")
+	data := []User{}
+	err := coll.Find(bson.M{}).Select(bson.M{"email": 1, "city": 1, "age": 1}).All(&data)
+	if err != nil {
+		fmt.Println("Error occured inside GetCUstomerById in repo")
+		return "", err
+	}
+	return data, nil
 }
+
+
+/*
 
 func (repo *repo) UpdateUser(ctx context.Context, user User) error {
 	err := repo.db.C("bloguser").Update(
@@ -66,4 +81,17 @@ func (repo *repo) UpdateUser(ctx context.Context, user User) error {
 		return err
 	}
 	return nil
+}
+*/
+
+func (repo *repo) UpdateUser(ctx context.Context, id int, user User) error {
+	coll := repo.db.C("bloguser")
+	err := coll.Update(bson.M{"userid": id}, bson.M{"$set": bson.M{"email": user.Email}})
+	if err != nil {
+		fmt.Println("Error occured inside update user repo")
+		return err
+	} else {
+		return nil
+	}
+
 }
