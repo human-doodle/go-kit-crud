@@ -14,6 +14,6 @@ Implements 3 functions:
  </pre>
  
  Creating a 3-Node Replica Set Cluster (on a single machine):
-  [Reffered from here](https://medium.com/swlh/mongodb-creating-a-3-node-replica-set-cluster-7ca94849b139 "Creating a 3-Node Replica Set Cluster")
+  [Referred from here](https://medium.com/swlh/mongodb-creating-a-3-node-replica-set-cluster-7ca94849b139 "Creating a 3-Node Replica Set Cluster")
    
  
