@@ -2,11 +2,14 @@ package account
 
 import (
 	"context"
-
+    "fmt"
 	"github.com/go-kit/kit/endpoint"
+	"strconv"
 )
 
+
 //Endpoints is...
+
 type Endpoints struct {
 	CreateUser endpoint.Endpoint
 	GetUser    endpoint.Endpoint
@@ -29,7 +32,7 @@ func makeCreateUserEndpoint(s Service) endpoint.Endpoint {
 		return CreateUserResponse{Ok: ok}, err
 	}
 }
-
+/*
 func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(GetUserRequest)
@@ -41,12 +44,33 @@ func makeGetUserEndpoint(s Service) endpoint.Endpoint {
 			Age:   age,
 		}, err
 	}
+} */
+func makeGetUserEndpoint(s Service) endpoint.Endpoint {
+	fmt.Println("into makeendpoint")
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+
+		data, err := s.GetUser(ctx)
+		return GetUserResponse{Data: data, Err: err}, nil
+	}
+
 }
 
+/*
 func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(UpdateUserRequest)
 		ok, err := s.UpdateUser(ctx, req.ID, req.Email, req.Password, req.City, req.Age)
 		return UpdateUserResponse{Ok: ok}, err
+	}
+} */
+
+
+func makeUpdateUserEndpoint(s Service) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(UpdateUserRequest)
+		rc := req.user
+		 i, err := strconv.Atoi(rc.ID)
+		 err = s.UpdateUser(ctx, i, req.user)
+		return UpdateUserResponse{Err: err}, nil
 	}
 }
