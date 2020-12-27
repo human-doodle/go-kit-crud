@@ -8,7 +8,7 @@ Implements 3 functions:
  
  To run:
  <pre>
-  1. Run three Mongod processes on ports 27011, 27012 and 27013 (on separate terminals) -> mongo --port_no
+  1. Run three Mongod processes on ports 27011, 27012 and 27013 (on separate terminals) -> mongo --port <port_no>
   2. go build
   3. go run .
  </pre>
